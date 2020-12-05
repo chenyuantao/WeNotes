@@ -7,7 +7,7 @@ import {
   MediaBoxInfoMeta,
   MediaBoxDescription,
 } from 'react-weui';
-import { Note } from '../../../services/notes';
+import { Note } from '@/services/notes';
 import dayjs from 'dayjs';
 import { history } from 'umi';
 

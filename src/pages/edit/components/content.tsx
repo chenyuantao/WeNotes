@@ -1,7 +1,7 @@
 import React from 'react';
 import { Article } from 'react-weui';
 import styles from './styles.less';
-import { Note } from '../../../services/notes';
+import { Note } from '@/services/notes';
 
 export default ({
   note,

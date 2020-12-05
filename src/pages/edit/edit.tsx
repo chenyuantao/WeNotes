@@ -1,7 +1,7 @@
 import React from 'react';
 import { IRouteComponentProps } from 'umi';
 import useSWR, { mutate } from 'swr';
-import { getOrCreateNote, saveNote, Note } from '../../services/notes';
+import { getOrCreateNote, saveNote, Note } from '@/services/notes';
 import styles from './components/styles.less';
 import Header from './components/header';
 import Content from './components/content';
