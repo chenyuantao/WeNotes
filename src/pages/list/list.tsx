@@ -44,7 +44,7 @@ export default () => {
       />
     );
   }
-  const list = data.filter(d => !searchValue || d.name.includes(searchValue));
+  const list = data.filter(d => !searchValue || d.title.includes(searchValue));
   return (
     <>
       <Header size={list.length} />

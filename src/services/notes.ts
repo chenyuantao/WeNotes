@@ -1,31 +1,40 @@
 export interface Note {
   id: string;
-  name: string;
+  title: string;
+  content: string;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 const LS_KEY_NOTES = 'notes';
-const LS_KEY_NOTE = 'notes';
 
 export const getNotes = (): Note[] => {
-  const json = localStorage.getItem(LS_KEY_NOTES);
-  return json ? JSON.parse(json) : [];
-};
-
-export const getNote = (id: string): string => {
-  createNote(id);
-  return localStorage.getItem(`${LS_KEY_NOTE}/${id}`) || '';
-};
-
-export const createNote = (id: string) => {
-  const notes = getNotes();
-  if (notes.some(n => n.id === id)) {
-    return;
+  const res: Note[] = [];
+  for (let idx = 0; idx < localStorage.length; idx++) {
+    const key = localStorage.key(idx);
+    if (key && key.startsWith(LS_KEY_NOTES)) {
+      const note = localStorage.getItem(key);
+      if (note) {
+        res.push(JSON.parse(note));
+      }
+    }
   }
-  notes.push({
+  return res;
+};
+
+export const getOrCreateNote = (id: string): Note => {
+  const key = `${LS_KEY_NOTES}/${id}`;
+  let note = localStorage.getItem(key);
+  if (note) {
+    return JSON.parse(note);
+  }
+  const newNote = {
     id,
-    name: 'new note',
+    title: 'A wonderful new note',
+    content: 'Keep calm and write something.',
     createdAt: new Date(),
-  });
-  localStorage.setItem(LS_KEY_NOTES, JSON.stringify(notes));
+    updatedAt: new Date(),
+  };
+  localStorage.setItem(key, JSON.stringify(newNote));
+  return newNote;
 };

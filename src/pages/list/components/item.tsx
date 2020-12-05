@@ -22,8 +22,8 @@ const ItemComp: React.FC<{ note: Note; style?: CSSProperties }> = ({
     className={styles.item}
     style={style}
   >
-    <MediaBoxTitle>{note.name}</MediaBoxTitle>
-    <MediaBoxDescription>{note.id}</MediaBoxDescription>
+    <MediaBoxTitle>{note.title}</MediaBoxTitle>
+    <MediaBoxDescription>{note.content}</MediaBoxDescription>
     <MediaBoxInfo>
       <MediaBoxInfoMeta>
         {dayjs(note.createdAt).format('YYYY-MM-DD HH:mm')}
