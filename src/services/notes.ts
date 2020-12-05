@@ -38,3 +38,6 @@ export const getOrCreateNote = (id: string): Note => {
   localStorage.setItem(key, JSON.stringify(newNote));
   return newNote;
 };
+
+export const saveNote = (id: string, note: Note) =>
+  localStorage.setItem(`${LS_KEY_NOTES}/${id}`, JSON.stringify(note));
