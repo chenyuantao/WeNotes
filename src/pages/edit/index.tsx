@@ -9,5 +9,5 @@ export default (props: IRouteComponentProps<{ id: string }>) => {
   if (!id) {
     return <div>something wrong.</div>;
   }
-  return <div>{data}</div>;
+  return <div style={{ background: 'red' }}>{id}</div>;
 };

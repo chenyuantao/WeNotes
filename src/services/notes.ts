@@ -9,7 +9,6 @@ const LS_KEY_NOTE = 'notes';
 
 export const getNotes = (): Note[] => {
   const json = localStorage.getItem(LS_KEY_NOTES);
-  console.log('getNotes', json);
   return json ? JSON.parse(json) : [];
 };
 

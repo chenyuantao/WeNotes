@@ -46,7 +46,7 @@ export default () => {
   }
   const list = data.filter(d => !searchValue || d.name.includes(searchValue));
   return (
-    <div className={styles.container}>
+    <>
       <Header size={list.length} />
       <SearchBar
         className={styles.search}
@@ -79,6 +79,6 @@ export default () => {
           </AutoSizer>
         </PullToRefresh>
       </div>
-    </div>
+    </>
   );
 };
