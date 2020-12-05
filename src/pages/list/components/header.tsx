@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.less';
+import styles from './styles.less';
 import { v4 as uuidv4 } from 'uuid';
 import { history } from 'umi';
 

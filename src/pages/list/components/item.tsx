@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import styles from './style.less';
+import styles from './styles.less';
 import {
   MediaBox,
   MediaBoxTitle,

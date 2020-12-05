@@ -2,7 +2,7 @@ import React from 'react';
 import { List, AutoSizer } from 'react-virtualized';
 import useSWR, { mutate } from 'swr';
 import { getNotes } from '../../services/notes';
-import styles from './components/style.less';
+import styles from './components/styles.less';
 import Header from './components/header';
 import Item from './components/item';
 import { history } from 'umi';

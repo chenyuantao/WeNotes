@@ -1,3 +1,20 @@
+@headerHeight: 44px;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: #efeff4;
+  position: relative;
+  height: @headerHeight;
+
+  .title {
+    text-align: center;
+    margin: 0;
+  }
+}
+
 .forward-enter {
   &:extend(.main);
   opacity: 0;
