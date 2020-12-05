@@ -9,6 +9,7 @@ export default defineConfig({
       path: '/',
       component: '@/layouts/index',
       routes: [
+        { path: '/', component: '@/pages/list', exact: true },
         { path: '/notes', component: '@/pages/list', exact: true },
         { path: '/notes/:id', component: '@/pages/edit', exact: true },
       ],
