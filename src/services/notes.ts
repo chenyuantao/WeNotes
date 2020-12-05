@@ -40,4 +40,10 @@ export const getOrCreateNote = (id: string): Note => {
 };
 
 export const saveNote = (id: string, note: Note) =>
-  localStorage.setItem(`${LS_KEY_NOTES}/${id}`, JSON.stringify({...note,updatedAt:new Date()}));
+  localStorage.setItem(
+    `${LS_KEY_NOTES}/${id}`,
+    JSON.stringify({ ...note, updatedAt: new Date() }),
+  );
+
+export const deleteNote = (id: string) =>
+  localStorage.removeItem(`${LS_KEY_NOTES}/${id}`);

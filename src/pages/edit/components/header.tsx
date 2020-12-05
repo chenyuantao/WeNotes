@@ -11,9 +11,11 @@ import {
   CellBody,
   Input,
   PopupHeader,
+  Button,
 } from 'react-weui';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import { deleteNote } from '@/services/notes';
 
 export default ({
   note,
@@ -88,6 +90,19 @@ export default ({
                 {dayjs(note.updatedAt).format('YYYY-MM-DD HH:mm:ss')}
               </CellBody>
             </FormCell>
+            <div className={styles.buttonArea}>
+              <Button
+                size="small"
+                type="warn"
+                className={styles.delete}
+                onClick={() => {
+                  deleteNote(note.id);
+                  history.goBack();
+                }}
+              >
+                DELETE
+              </Button>
+            </div>
           </Form>
         </>
       </Popup>
