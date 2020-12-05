@@ -18,17 +18,19 @@ export default ({
           setTimeout(() => {
             if (input) {
               input?.focus();
-              input?.setSelectionRange(
-                input.textLength,
-                input.textLength,
-                'forward',
-              );
+              if (input.selectionStart === 0) {
+                input?.setSelectionRange(
+                  input.textLength,
+                  input.textLength,
+                  'forward',
+                );
+              }
             }
           }, 251);
         }}
         className={styles.textarea}
         placeholder="Keep calm and write something."
-        value={note.content}
+        defaultValue={note.content}
         onChange={event =>
           onChange({
             ...note,
