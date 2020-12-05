@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Article } from 'react-weui';
 import styles from './styles.less';
 import { Note } from '../../../services/notes';
-import { useRef } from 'react';
 
 export default ({
   note,
@@ -14,6 +13,19 @@ export default ({
   return (
     <Article className={styles.art}>
       <textarea
+        ref={input => {
+          // wait for the page transition
+          setTimeout(() => {
+            if (input) {
+              input?.focus();
+              input?.setSelectionRange(
+                input.textLength,
+                input.textLength,
+                'forward',
+              );
+            }
+          }, 251);
+        }}
         className={styles.textarea}
         placeholder="Keep calm and write something."
         value={note.content}
