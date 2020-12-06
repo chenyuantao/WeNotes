@@ -1,4 +1,4 @@
-# umi project
+# WeNotes
 
 ## Getting Started
 
