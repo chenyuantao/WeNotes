@@ -13,7 +13,30 @@ export const getNotes = async (): Promise<Note[]> =>
   axios.get(API_PREFIX).then(res => res.data.data);
 
 export const getNote = async (id: number): Promise<Note> =>
-  axios.get(`${API_PREFIX}/${id}`).then(res => res.data.data);
+  axios.get(`${API_PREFIX}/${id}`).then(res => {
+    const json = localStorage.getItem(`${API_PREFIX}/${id}`);
+    if (json && res.data && res.data.data) {
+      const localNote = JSON.parse(json);
+      if (localNote && localNote.updatedAt > new Date(res.data.updatedAt)) {
+        // local data is latest, update to server
+        saveNote(id, { content: localNote.content });
+        return {
+          ...res.data.data,
+          ...localNote,
+        };
+      }
+    }
+    return res.data.data;
+  });
+
+export const saveNoteToLocal = async (id: number, content: string) =>
+  localStorage.setItem(
+    `${API_PREFIX}/${id}`,
+    JSON.stringify({
+      content,
+      updatedAt: new Date(),
+    }),
+  );
 
 export const createNote = async (note: Partial<Note>): Promise<Note> =>
   axios.put(`${API_PREFIX}`, note).then(res => res.data.data);
