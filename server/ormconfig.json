@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "rm-wz94difyvh7du1i2b4o.mysql.rds.aliyuncs.com",
+  "port": 3306,
+  "username": "wenotes",
+  "password": "Wenotes123",
+  "database": "wenotes",
+  "entities": ["dist/**/**.entity{.ts,.js}"],
+  "synchronize": true
+}

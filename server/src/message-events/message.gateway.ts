@@ -5,7 +5,6 @@ import {
   WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
-  WsResponse,
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
@@ -19,7 +18,7 @@ export class MessageGateway
 
   @SubscribeMessage('saveContent')
   public handleMessage(client: Socket, payload: any): void {
-    console.log('saveContent', payload);
+    return this.logger.log(`Save content: ${JSON.stringify(payload)}`);
   }
 
   public afterInit(server: Server): void {
