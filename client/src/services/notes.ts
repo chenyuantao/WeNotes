@@ -17,7 +17,10 @@ export const getNote = async (id: number): Promise<Note> =>
     const json = localStorage.getItem(`${API_PREFIX}/${id}`);
     if (json && res.data && res.data.data) {
       const localNote = JSON.parse(json);
-      if (localNote && localNote.updatedAt > new Date(res.data.updatedAt)) {
+      if (
+        localNote &&
+        new Date(localNote.updatedAt) > new Date(res.data.data.updatedAt)
+      ) {
         // local data is latest, update to server
         saveNote(id, { content: localNote.content });
         return {
