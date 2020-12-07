@@ -11,12 +11,30 @@ export class NotesService {
   ) {}
 
   async getNotes(): Promise<Notes[]> {
-    return await this.notesRepository.find();
+    return await this.notesRepository.find({ status: 1 });
   }
 
   async getNote(id: number): Promise<Notes> {
     return await this.notesRepository.findOne({
       id,
+      status: 1,
     });
+  }
+
+  async createNote(note: Notes): Promise<Notes> {
+    await this.notesRepository.insert(note);
+    return note;
+  }
+
+  async updateNote(id: number, note: Notes) {
+    await this.notesRepository.update(
+      { id },
+      { ...note, updatedAt: new Date() },
+    );
+    return note;
+  }
+
+  async deleteNote(id: number) {
+    await this.notesRepository.update({ id }, { status: 0 });
   }
 }

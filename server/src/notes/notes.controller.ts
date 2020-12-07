@@ -8,19 +8,33 @@ import {
   Param,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
-import { Notes } from './notes.entity';
 
-@Controller('notes')
+@Controller('/api/notes')
 export class NotesController {
   constructor(private service: NotesService) {}
 
   @Get(':id')
   get(@Param() params) {
-    return this.service.getNote(params.id);
+    return this.service.getNote(Number(params.id));
   }
 
   @Get()
   getList() {
     return this.service.getNotes();
+  }
+
+  @Put('')
+  create(@Body() body) {
+    return this.service.createNote(body);
+  }
+
+  @Post(':id')
+  update(@Body() body, @Param() params) {
+    return this.service.updateNote(Number(params.id), body);
+  }
+
+  @Delete(':id')
+  delete(@Param() params) {
+    return this.service.deleteNote(Number(params.id));
   }
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { useEffect, ChangeEvent } from 'react';
 import styles from './styles.less';
 import { history } from 'umi';
 import { Note } from '@/services/notes';
@@ -26,6 +26,11 @@ export default ({
 }) => {
   const [show, setShow] = useState(false);
   const [innerTitle, setInnerTitle] = useState(note.title);
+  useEffect(() => {
+    if (show) {
+      setInnerTitle(note.title);
+    }
+  }, [show]);
   return (
     <div className={styles.header}>
       <h3 className={styles.title}>{note.title}</h3>
@@ -67,7 +72,7 @@ export default ({
                 <Input
                   type="text"
                   placeholder="Enter your note's title."
-                  defaultValue={innerTitle}
+                  value={innerTitle}
                   onChange={(event: ChangeEvent<{ value: string }>) =>
                     setInnerTitle(event.currentTarget.value)
                   }

@@ -30,4 +30,7 @@ export class Notes {
     type: 'timestamp',
   })
   updatedAt: Date;
+
+  @Column({ width: 1, default: 1 })
+  status: number;
 }

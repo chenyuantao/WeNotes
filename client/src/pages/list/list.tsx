@@ -6,11 +6,18 @@ import styles from './components/styles.less';
 import Header from './components/header';
 import Item from './components/item';
 import { history } from 'umi';
-import { v4 as uuidv4 } from 'uuid';
 import { SearchBar, PullToRefresh, Msg } from 'react-weui';
 import { useState } from 'react';
+import { createNote } from '@/services/notes';
 
 const getNotesKey = '/api/notes';
+const createNoteAndRedirect = async () => {
+  const { id } = await createNote({
+    title: 'A wonderful new note',
+    content: 'Keep calm and write something.',
+  });
+  history.push(`/notes/${id}`);
+};
 
 export default () => {
   const { data, error } = useSWR(getNotesKey, getNotes);
@@ -38,7 +45,7 @@ export default () => {
           {
             type: 'primary',
             label: 'Create',
-            onClick: () => history.push(`/notes/${uuidv4()}`),
+            onClick: () => createNoteAndRedirect(),
           },
         ]}
       />
@@ -52,7 +59,7 @@ export default () => {
   );
   return (
     <>
-      <Header size={list.length} />
+      <Header size={list.length} onCreateNote={() => createNoteAndRedirect()} />
       <SearchBar
         className={styles.search}
         placeholder="Search"

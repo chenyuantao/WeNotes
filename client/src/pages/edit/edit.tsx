@@ -1,7 +1,7 @@
 import React from 'react';
 import { IRouteComponentProps } from 'umi';
 import useSWR, { mutate } from 'swr';
-import { getOrCreateNote, saveNote, Note } from '@/services/notes';
+import { getNote, saveNote, Note } from '@/services/notes';
 import useSocketIO from '@/hooks/useSocketIO';
 import styles from './components/styles.less';
 import Header from './components/header';
@@ -11,7 +11,7 @@ import { Msg } from 'react-weui';
 export default (props: IRouteComponentProps<{ id: string }>) => {
   const { id } = props.match.params;
   const apiKey = `/api/note/${id}`;
-  const { data, error } = useSWR(apiKey, () => getOrCreateNote(id));
+  const { data, error } = useSWR(apiKey, () => getNote(+id));
   const socket = useSocketIO('http://localhost:3004/notes');
   if (error) {
     return (
