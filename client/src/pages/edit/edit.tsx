@@ -24,13 +24,14 @@ export default (props: IRouteComponentProps<{ id: string }>) => {
     );
   }
   const onChange = (newNote: Note) => {
-    saveNote(newNote.id, newNote);
     mutate(apiKey);
     if (newNote.content !== data?.content) {
       socket?.emit('saveContent', {
         id,
         content: newNote.content,
       });
+    } else {
+      saveNote(newNote.id, newNote);
     }
   };
   if (!data || !socket || !socket.connected) {

@@ -6,6 +6,7 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
+import { NotesService } from '../notes/notes.service';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 
@@ -14,10 +15,18 @@ export class MessageGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
+  constructor(private noteService: NotesService) {}
+
   private logger: Logger = new Logger('MessageGateway');
 
   @SubscribeMessage('saveContent')
-  public handleMessage(client: Socket, payload: any): void {
+  public async handleMessage(
+    client: Socket,
+    payload: { id: number; content: string },
+  ): Promise<void> {
+    await this.noteService.updateNote(Number(payload.id), {
+      content: payload.content,
+    });
     return this.logger.log(`Save content: ${JSON.stringify(payload)}`);
   }
 

@@ -26,7 +26,7 @@ export class NotesService {
     return note;
   }
 
-  async updateNote(id: number, note: Notes) {
+  async updateNote(id: number, note: Partial<Notes>) {
     await this.notesRepository.update(
       { id },
       { ...note, updatedAt: new Date() },
