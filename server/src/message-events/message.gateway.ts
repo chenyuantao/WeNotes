@@ -17,21 +17,9 @@ export class MessageGateway
 
   private logger: Logger = new Logger('MessageGateway');
 
-  @SubscribeMessage('msgToServer')
-  public handleMessage(client: Socket, payload: any): boolean {
-    return this.server.to(payload.room).emit('msgToClient', payload);
-  }
-
-  @SubscribeMessage('joinRoom')
-  public joinRoom(client: Socket, room: string): void {
-    client.join(room);
-    client.emit('joinedRoom', room);
-  }
-
-  @SubscribeMessage('leaveRoom')
-  public leaveRoom(client: Socket, room: string): void {
-    client.leave(room);
-    client.emit('leftRoom', room);
+  @SubscribeMessage('saveContent')
+  public handleMessage(client: Socket, payload: any): void {
+    console.log('saveContent', payload);
   }
 
   public afterInit(server: Server): void {

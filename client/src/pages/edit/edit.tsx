@@ -2,6 +2,7 @@ import React from 'react';
 import { IRouteComponentProps } from 'umi';
 import useSWR, { mutate } from 'swr';
 import { getOrCreateNote, saveNote, Note } from '@/services/notes';
+import useSocketIO from '@/hooks/useSocketIO';
 import styles from './components/styles.less';
 import Header from './components/header';
 import Content from './components/content';
@@ -11,6 +12,7 @@ export default (props: IRouteComponentProps<{ id: string }>) => {
   const { id } = props.match.params;
   const apiKey = `/api/note/${id}`;
   const { data, error } = useSWR(apiKey, () => getOrCreateNote(id));
+  const socket = useSocketIO('http://localhost:3004/notes');
   if (error) {
     return (
       <Msg
@@ -24,8 +26,14 @@ export default (props: IRouteComponentProps<{ id: string }>) => {
   const onChange = (newNote: Note) => {
     saveNote(newNote.id, newNote);
     mutate(apiKey);
+    if (newNote.content !== data?.content) {
+      socket?.emit('saveContent', {
+        id,
+        content: newNote.content,
+      });
+    }
   };
-  if (!data) {
+  if (!data || !socket || !socket.connected) {
     return <Msg className={styles.msg} type="loading" title="Loading..." />;
   }
   return (
